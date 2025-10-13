@@ -1,0 +1,103 @@
+.profile-page {
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container utama isi profil */
+.profile-container {
+  margin: 100px auto;
+  max-width: 380px;
+  width: 90%;
+  background-color: #fff;
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-container h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 2rem;
+  text-transform: lowercase;
+}
+
+/* Label dan input */
+.profile-container label {
+  width: 100%;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 0.4rem;
+  text-transform: lowercase;
+}
+
+.profile-container input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  background-color: #fafafa;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.profile-container input:focus {
+  border-color: #112f4b;
+}
+
+/* Tombol logout */
+.logout-btn {
+  background-color: #112f4b; /* biru tua seperti navbar */
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 18px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-transform: lowercase;
+  margin-top: 0.8rem;
+}
+
+.logout-btn:hover {
+  background-color: #0e253c;
+}
+
+/* Belum Login Section */
+.not-logged-in {
+  margin: 140px auto;
+  text-align: center;
+  background-color: #fff;
+  padding: 50px 30px;
+  border-radius: 10px;
+  max-width: 380px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.not-logged-in p {
+  color: #222;
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+}
+
+.not-logged-in button {
+  background-color: #112f4b;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 18px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-transform: lowercase;
+}
+

@@ -1,0 +1,61 @@
+.best-seller-banner {
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 20 50px;
+}
+
+.banner-card .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.swiper {
+  padding: 20px 10px;
+}
+
+.banner-card {
+  background: #003049;
+  border-radius: 16px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.25);
+  height: 250px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  text-overflow: ellipsis;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.banner-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.banner-card .product-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px 16px 0 0;
+  display: block;
+}
+
+.banner-card .product-name {
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #003049;
+  border-radius: 20px;
+  color: #FCBF49;
+  display: inline-block;
+  text-align: center;
+  padding: 6px 15px;
+  margin-bottom: px;
+  max-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Work Sans', sans-serif;
+}
+
