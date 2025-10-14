@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, router, usePage } from "@inertiajs/react";
 import { Search, User, ShoppingCart } from "lucide-react";
 import "../styles/Navbar.css";
+import Swal from "sweetalert2";
 
 type InertiaProps = {
   auth?: {
@@ -29,14 +30,26 @@ export default function Navbar() {
   };
 
   const handleCartClick = (e: React.MouseEvent) => {
-    if (!user) {
-      e.preventDefault();
-      router.visit("/login", {
-        preserveScroll: true,
-        preserveState: true,
-      });
-    }
-  };
+  if (!user) {
+    e.preventDefault(); // hentikan link default
+
+    Swal.fire({
+      icon: "warning",
+      title: "Anda belum login!",
+      text: "Silakan login terlebih dahulu untuk melihat keranjang.",
+      showCancelButton: true,
+      confirmButtonText: "Login Sekarang",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.visit("/login", {
+          preserveScroll: true,
+          preserveState: true,
+        });
+      }
+    });
+  }
+};
 
   return (
     <header className="main-header">

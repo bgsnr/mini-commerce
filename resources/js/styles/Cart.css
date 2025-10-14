@@ -24,20 +24,23 @@
 
 .cart-header {
   display: grid;
-  grid-template-columns: 3fr 1fr 1.5fr 0.8fr;
+  grid-template-columns: 2fr 1fr 1fr 0.5fr; /* <– proporsional dan rata */
   font-weight: 500;
   color: #555;
   border-bottom: 1px solid #ddd;
   padding-bottom: 8px;
+  text-align: center;
 }
 
 .cart-item {
   display: grid;
-  grid-template-columns: 3fr 1fr 1.5fr 0.8fr;
+  grid-template-columns: 2fr 1fr 1fr 0.5fr; /* <– sama seperti header */
   align-items: center;
   padding: 14px 0;
   border-bottom: 1px solid #f0f0f0;
+  text-align: center;
 }
+
 
 .cart-container .product-info {
   display: flex;

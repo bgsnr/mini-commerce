@@ -1,7 +1,9 @@
 import React from 'react';
 import { useForm, Head } from '@inertiajs/react';
+import { Link, router } from "@inertiajs/react";
 import Navbar from '@/components/Navbar';
 import '../styles/Checkout.css';
+import Swal from 'sweetalert2';
 
 export default function Checkout() {
     const { data, setData, post, processing, errors } = useForm({
@@ -14,9 +16,32 @@ export default function Checkout() {
         payment_method: 'cash',
     });
 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/checkout');
+        post('/checkout', {
+            onSuccess: () => {
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Pesanan berhasil dibuat! 🛒',
+                });
+                router.reload(); // reload halaman jika perlu
+            },
+            onError: (err) => {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Terjadi kesalahan saat membuat pesanan.',
+                });
+                console.error('Checkout error:', err);
+            },
+        });
     };
 
     return (

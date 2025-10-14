@@ -13,11 +13,11 @@ class CheckoutController extends Controller
 {
     public function show()
     {
-        // Ambil data keranjang untuk ditampilkan di ringkasan checkout
         $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
         if ($cartItems->isEmpty()) {
             return redirect()->route('cart.index');
         }
+
         $subtotal = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
         $delivery = 7000;
         $total = $subtotal + $delivery;
@@ -51,7 +51,6 @@ class CheckoutController extends Controller
         $delivery = 7000;
         $total = $subtotal + $delivery;
 
-        // Gunakan transaction untuk memastikan semua query berhasil atau semua gagal
         DB::transaction(function () use ($validated, $cartItems, $subtotal, $delivery, $total) {
             $order = Order::create(array_merge($validated, [
                 'user_id' => Auth::id(),
@@ -61,14 +60,23 @@ class CheckoutController extends Controller
             ]));
 
             foreach ($cartItems as $item) {
+                $product = $item->product;
+
+                // Kurangi stok saat pesanan dibuat
+                if ($product->stock >= $item->quantity) {
+                    $product->stock -= $item->quantity;
+                    $product->save();
+                } else {
+                    throw new \Exception("Stok produk {$product->name} tidak cukup.");
+                }
+
                 $order->items()->create([
                     'product_id' => $item->product_id,
                     'qty' => $item->quantity,
-                    'price' => $item->product->price,
+                    'price' => $product->price,
                 ]);
             }
 
-            // Kosongkan keranjang setelah pesanan dibuat
             Cart::where('user_id', Auth::id())->delete();
         });
 

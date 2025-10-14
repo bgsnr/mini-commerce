@@ -16,9 +16,16 @@ type Product = {
 
 type Props = {
   product: Product;
+  auth?: {
+    user?: {
+      id: number;
+      name: string;
+      email: string;
+    };
+  };
 };
 
-export default function ProductDetail({ product }: Props) {
+export default function ProductDetail({ product, auth }: Props) {
   const [quantity, setQuantity] = useState<number>(1);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
@@ -31,23 +38,44 @@ export default function ProductDetail({ product }: Props) {
   });
 
   const increaseQty = () => {
-    if (quantity < product.stock) {
-      setQuantity(quantity + 1);
-    } else {
+    if (quantity >= product.stock) {
       Toast.fire({
         icon: "warning",
         title: `Stok produk hanya ${product.stock} item.`,
       });
+      return;
     }
+    setQuantity(quantity + 1);
   };
 
   const decreaseQty = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+    if (quantity <= 1) {
+      Toast.fire({
+        icon: "warning",
+        title: "Minimal order 1 item",
+      });
+      return;
     }
+    setQuantity(quantity - 1);
   };
 
   const addToCart = () => {
+    if (!auth?.user) {
+      Swal.fire({
+        icon: "warning",
+        title: "Anda belum login!",
+        text: "Silakan login terlebih dahulu untuk menambahkan produk ke keranjang.",
+        showCancelButton: true,
+        confirmButtonText: "Login Sekarang",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.visit("/login");
+        }
+      });
+      return;
+    }
+
     if (product.stock <= 0) {
       Toast.fire({
         icon: "error",
@@ -69,10 +97,7 @@ export default function ProductDetail({ product }: Props) {
 
     router.post(
       "/cart/add",
-      {
-        product_id: product.id,
-        quantity,
-      },
+      { product_id: product.id, quantity },
       {
         onSuccess: () => {
           setSubmitting(false);
@@ -121,14 +146,11 @@ export default function ProductDetail({ product }: Props) {
           </p>
 
           <div className="quantity-box">
-            <button onClick={decreaseQty} disabled={quantity <= 1 || submitting}>
+            <button onClick={decreaseQty} disabled={submitting}>
               −
             </button>
             <span>{quantity}</span>
-            <button
-              onClick={increaseQty}
-              disabled={quantity >= product.stock || submitting}
-            >
+            <button onClick={increaseQty} disabled={submitting}>
               +
             </button>
 

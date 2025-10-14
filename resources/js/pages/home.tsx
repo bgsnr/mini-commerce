@@ -42,7 +42,7 @@ export default function Home({ categories, bestSeller }: Props) {
         <div key={category.id} className="section">
           <div className="section-header">
             <h2>{category.name}</h2>
-            <a href={`/category/${category.id}`}>lihat semua</a>
+            <Link href={`/category/${category.id}`}>lihat semua</Link>
           </div>
 
           <div className="product-grid">

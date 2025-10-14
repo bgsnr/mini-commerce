@@ -23,7 +23,6 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    // ✅ Tambahkan ini
     public function getImageUrlAttribute()
     {
         return asset('images/' . $this->image);

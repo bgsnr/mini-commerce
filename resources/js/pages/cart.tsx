@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm, Link } from "@inertiajs/react";
+import Swal from "sweetalert2"; // import SweetAlert2
 import Navbar from "../components/Navbar";
 import "../styles/Cart.css";
 
@@ -9,6 +10,7 @@ type Product = {
   price: number;
   image: string;
   image_url: string;
+  stock: number; // pastikan ada stock
 };
 
 type CartItem = {
@@ -37,10 +39,13 @@ export default function Cart({ cartItems, subtotal, delivery, total }: CartProps
     setLocalCartItems(cartItems);
   }, [cartItems]);
 
-
   useEffect(() => {
     if (errors.quantity) {
-      alert(errors.quantity);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: errors.quantity,
+      });
     }
   }, [errors]);
 
@@ -49,37 +54,56 @@ export default function Cart({ cartItems, subtotal, delivery, total }: CartProps
   };
 
   const handleQuantityChange = (item: CartItem, type: "plus" | "minus") => {
-    const newQuantity =
-      type === "plus" ? item.quantity + 1 : Math.max(1, item.quantity - 1);
-    if (newQuantity === item.quantity) return;
+    let newQuantity = item.quantity;
 
-    // Update UI langsung
+    if (type === "plus") {
+        if (item.quantity >= item.product.stock) {
+            Swal.fire({
+                icon: "warning",
+                title: "Stok terbatas",
+                text: `Stok produk hanya ${item.product.stock} item.`,
+            });
+            return;
+        }
+        newQuantity = item.quantity + 1;
+    }
+
+    if (type === "minus") {
+        if (item.quantity <= 1) {
+            Swal.fire({
+                icon: "warning",
+                title: "Minimal order",
+                text: "Jumlah minimal adalah 1 item.",
+            });
+            return; 
+        }
+        newQuantity = item.quantity - 1;
+    }
+
     setLocalCartItems((prev) =>
-      prev.map((i) => (i.id === item.id ? { ...i, quantity: newQuantity } : i))
+        prev.map((i) => (i.id === item.id ? { ...i, quantity: newQuantity } : i))
     );
 
     setData({
-      product_id: item.product_id,
-      quantity: newQuantity,
+        product_id: item.product_id,
+        quantity: newQuantity,
     });
 
     post("/cart/update", {
-      preserveScroll: true,
-      preserveState: true,
-      onError: () => {
-        // Kembalikan ke semula kalau gagal
-        setLocalCartItems((prev) =>
-          prev.map((i) => (i.id === item.id ? { ...i, quantity: item.quantity } : i))
-        );
-      },
+        preserveScroll: true,
+        preserveState: true,
+        onError: () => {
+            setLocalCartItems((prev) =>
+                prev.map((i) => (i.id === item.id ? { ...i, quantity: item.quantity } : i))
+            );
+        },
     });
-  };
-
+};
   return (
     <div className="cart-page">
       <Navbar />
       <div className="cart-container">
-        <h2>keranjang belanja</h2>
+        <h2>Keranjang Belanja</h2>
 
         {localCartItems.length === 0 ? (
           <div className="empty-cart">
@@ -92,9 +116,9 @@ export default function Cart({ cartItems, subtotal, delivery, total }: CartProps
           <>
             <div className="cart-table">
               <div className="cart-header">
-                <span>product</span>
-                <span>harga</span>
-                <span>jumlah</span>
+                <span>Product</span>
+                <span>Harga</span>
+                <span>Jumlah</span>
                 <span></span>
               </div>
 
@@ -110,7 +134,7 @@ export default function Cart({ cartItems, subtotal, delivery, total }: CartProps
                   </div>
 
                   <div className="product-price">
-                    Rp {item.product.price.toLocaleString("id-ID", { maximumFractionDigits: 0 })}
+                     <strong>Rp{Number(item.product.price).toLocaleString("id-ID")}</strong>
                   </div>
 
                   <div className="quantity-control">
@@ -123,7 +147,7 @@ export default function Cart({ cartItems, subtotal, delivery, total }: CartProps
                     onClick={() => handleRemove(item.id)}
                     className="remove-btn"
                   >
-                    hapus item
+                    Hapus Item
                   </button>
                 </div>
               ))}
@@ -131,23 +155,22 @@ export default function Cart({ cartItems, subtotal, delivery, total }: CartProps
                       
             <div className="cart-summary">
               <div className="summary-item">
-                <span>subtotal</span>
+                <span>Subtotal</span>
                 <span>Rp {subtotal.toLocaleString("id-ID", { maximumFractionDigits: 0 })}</span>
               </div>
               <div className="summary-item">
-                <span>delivery</span>
+                <span>Delivery</span>
                 <span>Rp {delivery.toLocaleString("id-ID", { maximumFractionDigits: 0 })}</span>
               </div>
               <div className="summary-item total">
-                <span>total</span>
+                <span>Total</span>
                 <span>Rp {total.toLocaleString("id-ID", { maximumFractionDigits: 0 })}</span>
               </div>
 
               <Link href="/checkout" className="checkout-btn">
-                checkout
+                Checkout
               </Link>
             </div>
-                      
           </>
         )}
       </div>

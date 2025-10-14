@@ -20,6 +20,8 @@
 
 .product-detail-image {
   width: 100%;
+  max-width: 300px;
+  height: 300px;
   border-radius: 16px;
   object-fit: cover;
 }
@@ -47,21 +49,48 @@
   gap: 1rem;
 }
 
+/* Tombol + dan - */
 .quantity-box button {
-  padding: 0.4rem 1rem;
-  border: 1px solid #ccc;
-  background: white;
-  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #003049; 
+  background-color: white;    
+  color: #003049;           
+  font-weight: bold;
+  border-radius: 0.5rem;
   cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quantity-box button:hover:not(:disabled) {
+  background-color: #003049;
+}
+
+.quantity-box button:disabled {
+  background-color: #e5e7eb; 
+  color: #9ca3af;
+  cursor: not-allowed;
 }
 
 .quantity-box .add-to-cart {
-  background-color: #0b2239;
-  color: #FCBF49;
+  background-color: #003049;
+  color: white;
   border: none;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  margin-left: 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.quantity-box button:hover:not(:disabled) {
+  background-color: #003049; 
+  color: white;              
+}
+
+.quantity-box .add-to-cart:disabled {
+  background-color: #a1a1aa;
+  cursor: not-allowed;
 }
 
 .product-description {
