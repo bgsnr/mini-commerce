@@ -1,4 +1,10 @@
 import '../css/app.css';
+import '@/styles/Home.css'
+import '@/styles/Navbar.css'
+import '@/styles/Search.css'
+import '@/styles/Banner.css'
+import '@/components/Banner';
+
 
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
