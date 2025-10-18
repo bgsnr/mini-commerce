@@ -5,7 +5,6 @@
   flex-direction: column;
 }
 
-/* Container utama isi profil */
 .profile-container {
   margin: 100px auto;
   max-width: 380px;
@@ -28,7 +27,6 @@
   text-transform: lowercase;
 }
 
-/* Label dan input */
 .profile-container label {
   width: 100%;
   text-align: left;
@@ -54,9 +52,8 @@
   border-color: #112f4b;
 }
 
-/* Tombol logout */
 .logout-btn {
-  background-color: #112f4b; /* biru tua seperti navbar */
+  background-color: #112f4b;
   color: #fff;
   border: none;
   border-radius: 20px;
@@ -72,7 +69,6 @@
   background-color: #0e253c;
 }
 
-/* Belum Login Section */
 .not-logged-in {
   margin: 140px auto;
   text-align: center;

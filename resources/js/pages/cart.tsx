@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm, Link } from "@inertiajs/react";
-import Swal from "sweetalert2"; // import SweetAlert2
+import Swal from "sweetalert2";
 import Navbar from "../components/Navbar";
 import "../styles/Cart.css";
 
@@ -10,7 +10,7 @@ type Product = {
   price: number;
   image: string;
   image_url: string;
-  stock: number; // pastikan ada stock
+  stock: number;
 };
 
 type CartItem = {

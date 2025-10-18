@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, Head } from '@inertiajs/react';
-import { Link, router } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 import Navbar from '@/components/Navbar';
 import '../styles/Checkout.css';
 import Swal from 'sweetalert2';
@@ -32,7 +32,7 @@ export default function Checkout() {
                     icon: 'success',
                     title: 'Pesanan berhasil dibuat! 🛒',
                 });
-                router.reload(); // reload halaman jika perlu
+                router.reload();
             },
             onError: (err) => {
                 Toast.fire({

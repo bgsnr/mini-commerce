@@ -3,6 +3,7 @@ import { Link, useForm } from "@inertiajs/react";
 import Navbar from "../components/Navbar";
 import { Eye, EyeOff } from "lucide-react";
 import "../styles/Auth.css";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const { data, setData, post, processing, errors } = useForm({
@@ -10,11 +11,35 @@ export default function Login() {
     password: "",
   });
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+  });
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    post("/login");
+    post("/login", {
+      onSuccess: () => {
+        Toast.fire({
+          icon: "success",
+          title: "Login berhasil!",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      },
+      onError: () => {
+        Toast.fire({
+          icon: "error",
+          title: "Login gagal!",
+          text: "Cek email dan passwordmu.",
+        });
+      },
+    });
   };
 
   return (

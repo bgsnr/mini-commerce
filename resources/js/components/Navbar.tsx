@@ -31,11 +31,11 @@ export default function Navbar() {
 
   const handleCartClick = (e: React.MouseEvent) => {
   if (!user) {
-    e.preventDefault(); // hentikan link default
+    e.preventDefault();
 
     Swal.fire({
       icon: "warning",
-      title: "Anda belum login!",
+      title: "Kamu belum login!",
       text: "Silakan login terlebih dahulu untuk melihat keranjang.",
       showCancelButton: true,
       confirmButtonText: "Login Sekarang",

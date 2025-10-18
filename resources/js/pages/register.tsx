@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link, useForm } from "@inertiajs/react";
+import { Link, useForm, router } from "@inertiajs/react";
 import Navbar from "../components/Navbar";
 import { Eye, EyeOff } from "lucide-react";
 import "../styles/Auth.css";
+import Swal from "sweetalert2";
 
 export default function Register() {
   const { data, setData, post, processing, errors } = useForm({
@@ -15,9 +16,32 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    post("/register");
+    post("/register", {
+      onSuccess: () => {
+        Toast.fire({
+          icon: "success",
+          title: "Registrasi berhasil!",
+        }).then(() => {
+          router.visit("/login");
+        });
+      },
+      onError: () => {
+        Toast.fire({
+          icon: "error",
+          title: "Registrasi gagal! Cek data yang dimasukkan.",
+        });
+      },
+    });
   };
 
   return (

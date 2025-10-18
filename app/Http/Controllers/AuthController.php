@@ -10,39 +10,40 @@ use Inertia\Inertia;
 
 class AuthController extends Controller
 {
-    // 🧍‍♀️ Tampilkan halaman register
+    // Form register
     public function registerForm()
     {
         return Inertia::render('register');
     }
 
-    // 🧍‍♀️ Proses register user baru
+    // Proses register user baru
     public function register(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'password' => ['required', 'string', 'regex:/[a-zA-Z]/', 'regex:/[0-9]/', 'confirmed'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'is_admin' => false,
         ]);
 
         Auth::login($user);
 
-        return redirect('/')->with('success', 'Registrasi berhasil! Selamat datang 🎉');
+        return redirect('/')->with('success', 'Registrasi berhasil! Selamat datang!!');
     }
 
-    // 🔑 Tampilkan halaman login
+    // Form login
     public function loginForm()
     {
         return Inertia::render('login');
     }
 
-    // 🔑 Proses login
+    // login
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -52,7 +53,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+
+            if (Auth::user()->is_admin) {
+                return Inertia::location('/admin');
+            } else {
+                return redirect()->intended('/');
+            }
         }
 
         return back()->withErrors([
@@ -60,7 +66,7 @@ class AuthController extends Controller
         ]);
     }
 
-    // 🚪 Logout
+    // User Logout
     public function logout(Request $request)
     {
         Auth::logout();

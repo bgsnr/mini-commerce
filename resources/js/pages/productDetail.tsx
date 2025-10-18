@@ -1,6 +1,5 @@
-// resources/js/pages/product-detail.tsx
 import { useState } from "react";
-import { Link, router } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 import Navbar from "../components/Navbar";
 import "../styles/ProductDetail.css";
 import Swal from "sweetalert2";
@@ -63,7 +62,7 @@ export default function ProductDetail({ product, auth }: Props) {
     if (!auth?.user) {
       Swal.fire({
         icon: "warning",
-        title: "Anda belum login!",
+        title: "Kamu belum login!",
         text: "Silakan login terlebih dahulu untuk menambahkan produk ke keranjang.",
         showCancelButton: true,
         confirmButtonText: "Login Sekarang",
@@ -171,10 +170,6 @@ export default function ProductDetail({ product, auth }: Props) {
             <h3>Deskripsi</h3>
             <p style={{ whiteSpace: "pre-line" }}>{product.description}</p>
           </div>
-
-          <Link href="/" className="back-btn">
-            ← Kembali
-          </Link>
         </div>
       </div>
     </div>

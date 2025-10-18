@@ -24,7 +24,7 @@ class HomeController extends Controller
             return $category;
         });
 
-        // ambil 5 produk best seller (sementara acak / paling banyak stock)
+        // ambil 5 produk best seller (paling banyak stock)
         $bestSeller = Product::orderBy('stock', 'desc')->take(5)->get()->map(function ($product) {
             $product->image_url = asset('images/' . $product->image);
             return $product;
@@ -55,7 +55,4 @@ class HomeController extends Controller
             'products' => $products,
         ]);
     }
-
-    // 'cartCount' => \App\Models\Cart::where('user_id', auth()->id())->count(),
-
 }

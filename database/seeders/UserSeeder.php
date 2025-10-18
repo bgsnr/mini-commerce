@@ -14,8 +14,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Admin Utama',
                 'email' => 'admin@kulineria.test',
-                'password' => Hash::make('admin123'), // hash aman
-                'role' => 'admin',
+                'password' => Hash::make('admin123'),
+                'is_admin' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
                 'name' => 'User Satu',
                 'email' => 'user1@kulineria.test',
                 'password' => Hash::make('user123'),
-                'role' => 'user',
+                'is_admin' => false,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -31,10 +31,11 @@ class UserSeeder extends Seeder
                 'name' => 'User Dua',
                 'email' => 'user2@kulineria.test',
                 'password' => Hash::make('user123'),
-                'role' => 'user',
+                'is_admin' => false,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+        ]
+    );
     }
 }

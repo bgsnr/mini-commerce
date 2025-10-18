@@ -1,4 +1,3 @@
-/* === SEARCH PAGE === */
 .search-page {
   background-color: #fff;
   min-height: 100vh;
@@ -20,7 +19,6 @@
   font-family: "Work Sans", sans-serif;
 }
 
-/* === JIKA TIDAK ADA HASIL === */
 .search-container .no-results {
   text-align: center;
   color: #777;
@@ -28,7 +26,6 @@
   margin-top: 40px;
 }
 
-/* === GRID PRODUK === */
 .search-container .product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -36,7 +33,6 @@
   margin-top: 20px;
 }
 
-/* === CARD PRODUK === */
 .search-container .product-grid .product-card {
   background: white;
   border-radius: 16px;
@@ -67,8 +63,6 @@
   font-family: 'Work Sans', sans-serif;
 }
 
-
-/* === RESPONSIVE === */
 @media (max-width: 1024px) {
   .search-container .product-grid {
     grid-template-columns: repeat(3, 1fr);

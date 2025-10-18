@@ -2,7 +2,6 @@ import { Link } from "@inertiajs/react";
 import Navbar from "../components/Navbar";
 import "../styles/Search.css";
 
-// Interface tidak perlu diubah
 interface Product {
   id: number;
   name: string;
@@ -15,7 +14,6 @@ interface SearchProps {
   products: Product[];
 }
 
-// Terima 'props' secara utuh, lalu ambil 'products' saja di dalamnya
 export default function SearchPage(props: SearchProps) {
   const { products } = props;
   const productList = products || [];

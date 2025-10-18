@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Inertia\Inertia; // Pastikan kamu menggunakan Inertia
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
@@ -45,7 +45,6 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = \App\Models\Product::findOrFail($id);
-        $product->image_url = asset('images/' . $product->image);
 
         return \Inertia\Inertia::render('productDetail', [
             'product' => $product

@@ -24,7 +24,7 @@
 
 .cart-header {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 0.5fr; /* <– proporsional dan rata */
+  grid-template-columns: 2fr 1fr 1fr 0.5fr;
   font-weight: 500;
   color: #555;
   border-bottom: 1px solid #ddd;
@@ -34,7 +34,7 @@
 
 .cart-item {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 0.5fr; /* <– sama seperti header */
+  grid-template-columns: 2fr 1fr 1fr 0.5fr;
   align-items: center;
   padding: 14px 0;
   border-bottom: 1px solid #f0f0f0;
