@@ -28,8 +28,8 @@ export default function Login() {
         Toast.fire({
           icon: "success",
           title: "Login berhasil!",
-          showConfirmButton: false,
-          timer: 2500,
+          timer: 1500,
+          timerProgressBar: true,
         });
       },
       onError: () => {

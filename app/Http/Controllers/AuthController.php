@@ -29,7 +29,6 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'is_admin' => false,
         ]);
 
         Auth::login($user);
@@ -54,12 +53,9 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            if (Auth::user()->is_admin) {
-                return Inertia::location('/admin');
-            } else {
-                return redirect()->intended('/');
-            }
+            return redirect()->intended('/');
         }
+        
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',

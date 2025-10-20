@@ -22,10 +22,12 @@ return Application::configure(basePath: dirname(__DIR__))
             AddLinkHeadersForPreloadedAssets::class,
         ]);
 
+        // 👇 PERBAIKI NAMA MIDDLEWARE DI SINI
         $middleware->alias([
-            'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'admin' => \App\Http\Middleware\IsAdmin::class, 
         ]);
     })
+    // 👇 HAPUS LOGIKA LAMA DAN KOSONGKAN SEPERTI SEMULA
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // 
     })->create();

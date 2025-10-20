@@ -53,7 +53,7 @@ Route::post('/admin/logout', function (Request $request) {
     $request->session()->invalidate();
     $request->session()->regenerateToken();
 
-    return redirect('/');
+    return redirect('/admin/login');
 })->name('filament.admin.auth.logout');
 
 // CategoryDetail
